@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saranda 55 | Ionian Oasis</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
         
@@ -53,7 +52,7 @@
 
         .slider-dots {
             position: fixed;
-            bottom: 120px; /* Moved up as requested */
+            bottom: 120px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 50;
@@ -93,8 +92,6 @@
         }
         .social-btn:hover { transform: scale(1.1); filter: brightness(1.1); }
 
-        /* 3D Layer */
-        canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .section-padding { padding: 100px 20px; }
     </style>
@@ -106,8 +103,6 @@
     <div class="slider-arrow arrow-left" onclick="manualChange(-1)">❮</div>
     <div class="slider-arrow arrow-right" onclick="manualChange(1)">❯</div>
     <div class="slider-dots" id="slider-dots"></div>
-
-    <div id="canvas-container"></div>
 
     <div class="social-float-container">
         <a href="https://www.instagram.com/saranda55_rental/" target="_blank" class="social-btn bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]">
@@ -188,7 +183,7 @@
             'room-3.jpg', 
             'room-2.jpg', 
             'room-1.jpg'
-        ]; //
+        ];
 
         let currentImgIndex = 0;
         let sliderInterval;
@@ -236,45 +231,6 @@
 
         updateSlider();
         startAutoSlider();
-
-        // --- THREE.JS LOGIC ---
-        let scene, camera, renderer, photoPlane;
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-            const loader = new THREE.TextureLoader();
-            const texture = loader.load('room-4.jpg');
-            const geometry = new THREE.PlaneGeometry(5, 3.3);
-            const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 0.95 });
-            
-            photoPlane = new THREE.Mesh(geometry, material);
-            photoPlane.position.x = window.innerWidth > 768 ? 3.8 : 0;
-            scene.add(photoPlane);
-
-            camera.position.z = 5;
-            animate();
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = Date.now() * 0.0006;
-            photoPlane.rotation.y = Math.sin(time) * 0.12;
-            photoPlane.position.y = Math.cos(time * 0.4) * 0.12;
-            renderer.render(scene, camera);
-        }
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            photoPlane.position.x = window.innerWidth > 768 ? 3.8 : 0;
-        });
-
-        init();
     </script>
 </body>
 </html>
