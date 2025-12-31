@@ -7,7 +7,7 @@
     
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap');
@@ -21,7 +21,6 @@
             scroll-behavior: smooth; 
         }
         
-        /* Image Slider Background Layer */
         #slider-bg {
             position: fixed;
             top: 0;
@@ -35,7 +34,6 @@
             transition: background-image 1.5s ease-in-out;
         }
 
-        /* Manual Controls */
         .slider-arrow {
             position: fixed;
             top: 50%;
@@ -73,7 +71,6 @@
         }
         .dot.active { background: white; width: 30px; border-radius: 10px; }
 
-        /* Floating Social Buttons Container */
         .social-float-container {
             position: fixed;
             bottom: 30px;
@@ -85,13 +82,13 @@
         }
         
         .social-btn { 
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
             transition: transform 0.3s, filter 0.3s; 
         }
         .social-btn:hover { transform: scale(1.1); filter: brightness(1.1); }
@@ -194,7 +191,6 @@
         const sliderBg = document.getElementById('slider-bg');
         const dotsContainer = document.getElementById('slider-dots');
 
-        // Create Navigation Dots
         images.forEach((_, index) => {
             const dot = document.createElement('div');
             dot.classList.add('dot');
@@ -205,8 +201,6 @@
 
         function updateSlider() {
             sliderBg.style.backgroundImage = `url(${images[currentImgIndex]})`;
-            
-            // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentImgIndex);
             });
@@ -238,6 +232,3 @@
     </script>
 </body>
 </html>
-
-
-
